@@ -1,0 +1,64 @@
+{% extends "base.html.twig" %}
+
+
+{% block title %}Liste der Spiele{% endblock %}
+{% block body %}
+    <a href="/" class="mb-2 btn-block btn-link"><i class="fal fa-arrow-left"></i> Zurück zur Übersicht</a>
+    <div class="card">
+        <div class="card-body">
+            <h3>Neues Spiel</h3>
+
+            <form action="/add" method="post">
+
+                <table class="table">
+                    <tr>
+                        <th>Team A</th>
+                        <th>Team B</th>
+                    </tr>
+                    {% for player in players %}
+                        <tr>
+                            <td>
+                                <div class="form-check">
+                                    <input class="form-check-input teamselect teamb" type="checkbox"
+                                           value="{{ player.id }}"
+                                           id="a{{ player.id }}" name="teama[]">
+                                    <label class="form-check-label" for="a{{ player.id }}">
+                                        {{ player.name }}
+                                    </label>
+                                </div>
+                            </td>
+                            <td class="text-left">
+                                <div class="form-check">
+                                    <input class="form-check-input teamselect teama" type="checkbox"
+                                           value="{{ player.id }}"
+                                           id="b{{ player.id }}" name="teamb[]">
+                                    <label class="form-check-label" for="b{{ player.id }}">
+                                        {{ player.name }}
+                                    </label>
+                                </div>
+                            </td>
+                        </tr>
+                    {% endfor %}
+
+                </table>
+
+
+                <button type="submit" class="btn btn-primary btn-raised add-game" disabled>Spiel Hinzufügen</button>
+
+                <script>
+                    $('.teamselect').change(function () {
+                        var teama = ($('.teamselect.teama:checked').length);
+                        var teamb = ($('.teamselect.teamb:checked').length);
+                        if (teama !== 2 || teamb !== 2) {
+                            $('.add-game').attr("disabled", "")
+                        } else {
+                            $('.add-game').removeAttr("disabled")
+                        }
+                    })
+                </script>
+
+            </form>
+        </div>
+    </div>
+
+{% endblock %}

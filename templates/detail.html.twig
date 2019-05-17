@@ -1,0 +1,229 @@
+{% extends "base.html.twig" %}
+
+
+{% block title %}Liste der Spiele{% endblock %}
+{% block body %}
+    <a href="/" class="mb-2 btn-block btn-link"><i class="fal fa-arrow-left"></i> Zurück zur Übersicht</a>
+    <div class="card mb-4">
+        <div class="card-body">
+            <h3>Offenes Spiel</h3>
+
+            <style>
+                .form-group.left {
+                    padding-left: 10px;
+                }
+
+                .form-group.right {
+                    padding-right: 10px;
+                }
+            </style>
+
+
+            <table class="table">
+                <tr>
+                    <th>Team A
+                        <small>{{ game.playeroneteama.name }}, {{ game.playertwoteama.name }}</small>
+
+                    </th>
+                    <th>Team B
+                        <small>
+                            {{ game.playeroneteamb.name }}, {{ game.playertwoteamb.name }}</small>
+                    </th>
+                </tr>
+
+                {% set pointsA = 0 %}
+                {% set pointsB = 0 %}
+                {% for round in game.rounds %}
+                    {% set pointsA = pointsA + round.PointsTeamA %}
+                    {% set pointsB = pointsB + round.PointsTeamB %}
+
+
+                    <tr>
+                        <td>
+                            {% if loop.first == false %}
+                                <small> +{{ round.PointsTeamA }} =</small>
+                            {% endif %}
+                            {{ pointsA }}
+                        </td>
+                        <td class="text-left">
+                            {% if loop.first == false %}
+                                <small> +{{ round.PointsTeamB }} =</small>
+                            {% endif %}
+                            {{ pointsB }}
+
+
+                        </td>
+                    </tr>
+                {% endfor %}
+
+            </table>
+
+            {% if game.rounds|length > 0 %}
+            <a href="/detail/{{ game.id }}/deletelastround" class="btn btn-danger btn-sm mb-2"><i class="fal fa-times"></i> Letzte Runde
+                löschen</a>
+
+            {% endif %}
+
+
+            <button data-toggle="modal" data-target="#exampleModal" class="btn btn-primary btn-raised btn-block btn-lg">
+                Runde
+                Hinzufügen
+            </button>
+
+
+        </div>
+    </div>
+
+
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Neue Runde</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form action="" method="post">
+                    <div class="modal-body">
+
+
+                        <table class="table table-borderless table-sm">
+
+                            <tr>
+                                <td>
+                                    <div class="form-group ">
+                                        <label for="teama">Team A
+                                            <small>
+                                                {{ game.playeroneteama.name }}, {{ game.playertwoteama.name }}</small>
+                                        </label>
+                                        <input type="number" class="form-control" id="teama" name="teama">
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="form-group ">
+                                        <label for="teamb">Team B
+                                            <small>
+                                                {{ game.playeroneteamb.name }}, {{ game.playertwoteamb.name }}</small>
+                                        </label>
+                                        <input type="number" class="form-control" id="teamb" name="teamb">
+
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" name="doublea"> Doppelsieg (200)
+                                        </label>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" name="doubleb"> Doppelsieg (200)
+                                        </label>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" name="tichua"> Tichu (+100)
+                                        </label>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" name="tichub"> Tichu (+100)
+                                        </label>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" name="gtichua"> Grosses Tichu (+200)
+                                        </label>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" name="gtichub"> Grosses Tichu (+200)
+                                        </label>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" name="ntichua"> Tichu versagt (-100)
+                                        </label>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" name="ntichub"> Tichu versagt (-100)
+                                        </label>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" name="ngtichua"> Grosses Tichu versagt (-200)
+                                        </label>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" name="ngtichub"> Grosses Tichu versagt (-200)
+                                        </label>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+
+                    <script>
+                        var teama = $("#teama");
+                        var teamb = $("#teamb");
+
+                        teama.change(function () {
+                            teama.val(parsePoints(this));
+                            teamb.val(100 - parsePoints(this));
+                        });
+
+                        teamb.change(function () {
+                            teamb.val(parsePoints(this));
+                            teama.val(100 - parsePoints(this));
+                        });
+
+                        function parsePoints(element) {
+                            return (Math.round(parseInt($(element).val()) / 5) * 5);
+                        }
+
+
+                    </script>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Abbrechen</button>
+                        <button type="submit" class="btn btn-primary">Hinzufügen</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+{% endblock %}
