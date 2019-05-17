@@ -7,10 +7,16 @@
     <div class="card">
         <div class="card-body">
             <h3>Neues Spiel</h3>
+            <style>
+                .form-check-label {
+                    display: block;
+                    padding: 5px 2px;
+                }
+            </style>
 
             <form action="/add" method="post">
 
-                <table class="table">
+                <table class="table table-sm">
                     <tr>
                         <th>Team A</th>
                         <th>Team B</th>
@@ -18,24 +24,22 @@
                     {% for player in players %}
                         <tr>
                             <td>
-                                <div class="form-check">
-                                    <input class="form-check-input teamselect teamb" type="checkbox"
+
+                                <label class="form-check-label" for="a{{ player.id }}">
+                                    <input class=" teamselect teamb" type="checkbox"
                                            value="{{ player.id }}"
                                            id="a{{ player.id }}" name="teama[]">
-                                    <label class="form-check-label" for="a{{ player.id }}">
-                                        {{ player.name }}
-                                    </label>
-                                </div>
+                                    {{ player.name }}
+                                </label>
                             </td>
                             <td class="text-left">
-                                <div class="form-check">
-                                    <input class="form-check-input teamselect teama" type="checkbox"
+
+                                <label class="form-check-label" for="b{{ player.id }}">
+                                    <input class=" teamselect teama" type="checkbox"
                                            value="{{ player.id }}"
                                            id="b{{ player.id }}" name="teamb[]">
-                                    <label class="form-check-label" for="b{{ player.id }}">
-                                        {{ player.name }}
-                                    </label>
-                                </div>
+                                    {{ player.name }}
+                                </label>
                             </td>
                         </tr>
                     {% endfor %}
