@@ -19,25 +19,25 @@ class Game
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Player", inversedBy="games")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Player")
      * @ORM\JoinColumn(nullable=false)
      */
     private $player_one_team_a;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Player", inversedBy="games")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Player")
      * @ORM\JoinColumn(nullable=false)
      */
     private $player_two_team_a;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Player", inversedBy="games")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Player")
      * @ORM\JoinColumn(nullable=false)
      */
     private $player_one_team_b;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Player", inversedBy="games")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Player")
      */
     private $player_two_team_b;
 

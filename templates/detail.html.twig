@@ -6,9 +6,10 @@
     <a href="/" class="mb-2 btn-block btn-link"><i class="fal fa-arrow-left"></i> Zurück zur Übersicht</a>
     <div class="card mb-4">
         <div class="card-body">
-            <h3 class="float-left">Offenes Spiel</h3>
+            <h3 class="float-left">Spiel</h3>
 
-            <a href="/detail/{{ game.id }}/delete" class="btn btn-danger btn-sm mb-2 float-right"><i class="fal fa-times"></i> Spiel löschen</a>
+            <a href="/detail/{{ game.id }}/delete" class="btn btn-danger btn-sm mb-2 float-right"><i
+                        class="fal fa-times"></i> Spiel löschen</a>
 
 
             <style>
@@ -44,15 +45,24 @@
                     <tr>
                         <td>
                             {% if loop.first == false %}
-                                <small> +{{ round.PointsTeamA }} =</small>
+                                +{{ round.PointsTeamA }} =
                             {% endif %}
-                            {{ pointsA }}
+                            {% if loop.last %}
+                                <h4>    {{ pointsA }}</h4>
+                            {% else %}
+                                {{ pointsA }}
+                            {% endif %}
                         </td>
                         <td class="text-left">
                             {% if loop.first == false %}
-                                <small> +{{ round.PointsTeamB }} =</small>
+                                +{{ round.PointsTeamB }} =
                             {% endif %}
-                            {{ pointsB }}
+
+                            {% if loop.last %}
+                                <h4>    {{ pointsB }}</h4>
+                            {% else %}
+                                {{ pointsB }}
+                            {% endif %}
 
 
                         </td>
@@ -62,17 +72,19 @@
             </table>
 
             {% if game.rounds|length > 0 %}
-            <a href="/detail/{{ game.id }}/deletelastround" class="btn btn-danger btn-sm mb-2"><i class="fal fa-times"></i> Letzte Runde
-                löschen</a>
+                <a href="/detail/{{ game.id }}/deletelastround" class="btn btn-danger btn-sm mb-2"><i
+                            class="fal fa-times"></i> Letzte Runde
+                    löschen</a>
 
             {% endif %}
 
-
-            <button data-toggle="modal" data-target="#exampleModal" class="btn btn-primary btn-raised btn-block btn-lg">
-                Runde
-                Hinzufügen
-            </button>
-
+            {% if game.isFinished() == false %}
+                <button data-toggle="modal" data-target="#exampleModal"
+                        class="btn btn-primary btn-raised btn-block btn-lg">
+                    Runde
+                    Hinzufügen
+                </button>
+            {% endif %}
 
         </div>
     </div>
