@@ -147,6 +147,21 @@ group by name) as t group by name;";
 
 
     /**
+     * @Route("/detail/{id}/delete")
+     */
+    public function delete($id, Request $request)
+    {
+        $repository = $this->getDoctrine()->getRepository(Game::class);
+
+        $game = $repository->find($id);
+        $this->getDoctrine()->getManager()->remove($game);
+        $this->getDoctrine()->getManager()->flush();
+        return new RedirectResponse("/");
+
+    }
+
+
+    /**
      * @Route("/detail/{id}")
      */
     public function detail($id, Request $request)

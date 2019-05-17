@@ -6,7 +6,10 @@
     <a href="/" class="mb-2 btn-block btn-link"><i class="fal fa-arrow-left"></i> Zurück zur Übersicht</a>
     <div class="card mb-4">
         <div class="card-body">
-            <h3>Offenes Spiel</h3>
+            <h3 class="float-left">Offenes Spiel</h3>
+
+            <a href="/detail/{{ game.id }}/delete" class="btn btn-danger btn-sm mb-2 float-right"><i class="fal fa-times"></i> Spiel löschen</a>
+
 
             <style>
                 .form-group.left {
@@ -98,7 +101,7 @@
                                             <small>
                                                 {{ game.playeroneteama.name }}, {{ game.playertwoteama.name }}</small>
                                         </label>
-                                        <input type="number" class="form-control" id="teama" name="teama">
+                                        <input type="number" class="form-control" id="teama" name="teama" autofocus>
                                     </div>
                                 </td>
                                 <td>

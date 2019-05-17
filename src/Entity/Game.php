@@ -42,7 +42,9 @@ class Game
     private $player_two_team_b;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Round", mappedBy="game")
+     * @ORM\OneToMany(targetEntity="App\Entity\Round", mappedBy="game",
+     *   orphanRemoval=true,
+     *   cascade={"persist", "remove"})
      */
     private $rounds;
 
@@ -118,7 +120,6 @@ class Game
             $this->rounds[] = $round;
             $round->setGame($this);
         }
-
         return $this;
     }
 
