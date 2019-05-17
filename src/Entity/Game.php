@@ -123,7 +123,8 @@ class Game
         return $this;
     }
 
-    public function getPointsTeamA(){
+    public function getPointsTeamA()
+    {
         $points = 0;
         foreach ($this->getRounds() as $index => $round) {
             $points += $round->getPointsTeamA();
@@ -131,7 +132,8 @@ class Game
         return $points;
     }
 
-    public function getPointsTeamB(){
+    public function getPointsTeamB()
+    {
         $points = 0;
         foreach ($this->getRounds() as $index => $round) {
             $points += $round->getPointsTeamB();
@@ -150,5 +152,23 @@ class Game
         }
 
         return $this;
+    }
+
+    public function isFinished()
+    {
+        $rounds = $this->getRounds();
+        $totala = 0;
+        $totalb = 0;
+        foreach ($rounds as $index => $round) {
+            $totala += $round->getPointsTeamA();
+            $totalb += $round->getPointsTeamB();
+        }
+        if ($totala > 1000) {
+            return true;
+        }
+        if ($totalb > 1000) {
+            return true;
+        }
+        return false;
     }
 }

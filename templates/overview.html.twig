@@ -15,6 +15,7 @@
                     <th class="text-right">Team B</th>
                 </tr>
                 {% for game in games %}
+                    {% if game.isFinished() == false %}
                     <tr onclick="document.location.href = '/detail/{{ game.id }}'">
                         <td>
                             {{ game.playeroneteama.name }}, {{ game.playertwoteama.name }}
@@ -27,9 +28,10 @@
                             <i class="fal fa-arrow-right"></i>
                         </td>
                     </tr>
+                    {% endif %}
                 {% endfor %}
             </table>
-            <h3 class="float-left">Archivierte Spiele</h3>
+            <h3 class="float-left">Beendete Spiele</h3>
             <a class="btn btn-info float-right btn-raised" href="/statistics"><i class="fa fa-chart-line"></i> Statistik</a>
             <div class="clearfix mb-3"></div>
             <table class="table ">
@@ -38,15 +40,23 @@
                     <th class="text-center">Punkte</th>
                     <th class="text-right">Team B</th>
                 </tr>
-                <tr>
-                    <td>
-                        <i class="fas fa-trophy"></i>
-                    </td>
-                    <td class="text-center">
-                    </td>
-                    <td class="text-right">
-                    </td>
-                </tr>
+                {% for game in games %}
+
+                    {% if game.isFinished() %}
+                    <tr onclick="document.location.href = '/detail/{{ game.id }}'">
+                        <td>
+                            {{ game.playeroneteama.name }}, {{ game.playertwoteama.name }}
+                        </td>
+                        <td class="text-center">
+                            <h4>{{ game.getPointsTeamA() }}:{{ game.getPointsTeamB() }}</h4>
+                        </td>
+                        <td class="text-right">
+                            {{ game.playeroneteamb.name }}, {{ game.playertwoteamb.name }}
+                            <i class="fal fa-arrow-right"></i>
+                        </td>
+                    </tr>
+                    {% endif %}
+                {% endfor %}
             </table>
         </div>
     </div>
